@@ -5,17 +5,15 @@ let showing = false;
 // Inicializar el lector de códigos de barras y la cámara        
 function initializeScanner() {
     codeReader = new ZXing.BrowserMultiFormatReader();
-
-    if (!stream) {
-        navigator.mediaDevices.getUserMedia({ video: true })
-            .then(s => {
-                stream = s;
-                video.srcObject = stream;
-                video.play();
-                startDecoding();
-            })
-            .catch(err => console.error("Error al acceder a la webcam: ", err));
-    }
+    
+    navigator.mediaDevices.getUserMedia({ video: true })
+        .then(s => {
+            stream = s;
+            video.srcObject = stream;
+            video.play();
+            startDecoding();
+        })
+        .catch(err => console.error("Error al acceder a la webcam: ", err));
 }
 
 // Iniciar la decodificación del código de barras
