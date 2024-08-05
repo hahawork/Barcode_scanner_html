@@ -66,8 +66,8 @@ document.getElementById('stop').addEventListener('click', () => {
 });
 
 document.addEventListener('keydown', (event) => {
-    event.preventDefault();
     if (event.key === 'Insert') {
+        event.preventDefault();
         document.getElementById('result').textContent = "";
         if (!showing) {
             initializeScanner();
