@@ -3,7 +3,8 @@
 
 Esto es un ejemplo básico de cómo puedes usar la Cámara web de tu computadora para leer código de barra y códigos QR.
 
-
+## Live demo
+[Click para ir O ctrl + click para abrir nueva pestaña](https://hahawork.github.io/Barcode_scanner_html/)
 
 ## Library
 
