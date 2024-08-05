@@ -80,3 +80,45 @@ document.addEventListener('keydown', (event) => {
         showing = !showing;
     }
 });
+
+// Elemento select para elegir cámaras
+const videoSelect = document.createElement('select');
+document.body.insertBefore(videoSelect, document.getElementById('video'));
+
+// Obtener las cámaras disponibles y llenar el select
+navigator.mediaDevices.enumerateDevices().then(devices => {
+    devices.forEach(device => {
+        if (device.kind === 'videoinput') {
+            const option = document.createElement('option');
+            option.value = device.deviceId;
+            option.text = device.label || `Camera ${videoSelect.length + 1}`;
+            videoSelect.appendChild(option);
+        }
+    });
+});
+
+// Cambiar la cámara cuando se selecciona una opción diferente
+videoSelect.addEventListener('change', () => {
+    const selectedDeviceId = videoSelect.value;
+    startCamera(selectedDeviceId);
+});
+
+// Función para iniciar la cámara seleccionada
+function startCamera(deviceId) {
+    if (stream) {
+        stream.getTracks().forEach(track => track.stop());
+    }
+
+    const constraints = {
+        video: { deviceId: { exact: deviceId } }
+    };
+
+    navigator.mediaDevices.getUserMedia(constraints)
+        .then(s => {
+            stream = s;
+            video.srcObject = stream;
+            video.play();
+            startDecoding();
+        })
+        .catch(err => console.error("Error al acceder a la webcam: ", err));
+}
